@@ -317,9 +317,9 @@ const restaurants = [
    menu:[{n:"광양 불고기",p:"18,000원",d:"1인분 150g"},{n:"된장찌개",p:"8,000원",d:"구수한 전통"},{n:"냉면",p:"10,000원",d:"불고기 후 마무리"},{n:"막걸리",p:"4,000원",d:"지역 생막걸리"}]},
 ];
 
-const regions = ["전체","수도권","경기도","경상남도","경상북도","전라도","전라남도"];
-const categories = ["전체","한식","해산물","양식","일식","중식","카페/디저트"];
-let activeRegion="전체", activeCat="전체";
+const regions = ["전체", "수도권", "경기도", "경상남도", "경상북도", "전라도", "전라남도"];
+const categories = ["전체", "한식", "해산물", "양식", "일식", "중식", "분식", "카페/디저트"]; 
+let activeRegion = "전체", activeCat = "전체";
 
 function init() {
   const tabsEl = document.getElementById("regionTabs");
@@ -346,9 +346,14 @@ function updateCats() { document.querySelectorAll(".cat-btn").forEach((b,i)=>b.c
 function render() {
   const q = document.getElementById("searchInput").value.trim().toLowerCase();
   let data = restaurants;
-  if (activeRegion!=="전체") data=data.filter(r=>r.region===activeRegion);
-  if (activeCat!=="전체") data=data.filter(r=>r.cat===activeCat);
-  if (q) data=data.filter(r=>r.name.toLowerCase().includes(q)||r.desc.toLowerCase().includes(q)||r.city.includes(q));
+  if (activeRegion !== "전체") data = data.filter(r => r.region === activeRegion);
+  if (activeCat !== "전체") data = data.filter(r => r.cat === activeCat);
+  if (q) {
+      data = data.filter(r => 
+      r.name.toLowerCase().includes(q) || 
+      r.desc.toLowerCase().includes(q) || 
+      r.city.toLowerCase().includes(q)
+    );
   document.getElementById("sectionTitle").innerHTML=`${activeRegion==="전체"?"전체 지역":activeRegion} 맛집 <span class="count">${data.length}곳</span>`;
   const grid=document.getElementById("grid");
   grid.innerHTML="";
